@@ -7,7 +7,6 @@ export default function usePokemonList() {
   const [isLoadingMore, setIsLoadingMore] = useState(false); // next pages
   const [error, setError] = useState(null);
   const [hasMore, setHasMore] = useState(true);
-
     // Concept: useRef — keeps values between renders without triggering a re-render.
   const offsetRef = useRef(0);
   const isFetchingRef = useRef(false);

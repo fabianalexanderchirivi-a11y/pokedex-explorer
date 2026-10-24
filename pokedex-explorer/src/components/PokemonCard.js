@@ -15,7 +15,6 @@ export default function PokemonCard({ pokemon, onPress }) {
     </Pressable>
   );
 }
-
 const styles = StyleSheet.create({
   card: {
     flex: 1,
