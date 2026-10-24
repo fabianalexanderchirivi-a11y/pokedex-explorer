@@ -18,5 +18,4 @@ export const typeColors = {
   steel: { label: 'Acero', color: '#B7B7CE' },
   fairy: { label: 'Hada', color: '#D685AD' },
 };
-
 export const defaultTypeColor = { label: 'Desconocido', color: '#9CA3AF' };

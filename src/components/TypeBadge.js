@@ -11,7 +11,6 @@ export default function TypeBadge({ type }) {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   badge: {
     borderRadius: 20,

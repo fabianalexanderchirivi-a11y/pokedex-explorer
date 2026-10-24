@@ -5,8 +5,7 @@ export default function usePokemonDetail(query) {
   const [pokemon, setPokemon] = useState(null);
   const [status, setStatus] = useState('loading');
   const [reloadKey, setReloadKey] = useState(0);
-  // Concept: useEffect (dependency array) — 
-  // the request runs again only when query or reloadKey change.
+  // Concept: useEffect (dependency array) 
   useEffect(() => {
     let isCancelled = false;
 
