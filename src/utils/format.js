@@ -7,3 +7,14 @@ export const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1)
 
 export const getImageUrl = (id) =>
   `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+
+const STAT_LABELS = {
+  hp: 'PS',
+  attack: 'Ataque',
+  defense: 'Defensa',
+  'special-attack': 'Ataque esp.',
+  'special-defense': 'Defensa esp.',
+  speed: 'Velocidad',
+};
+
+export const getStatLabel = (name) => STAT_LABELS[name] ?? capitalize(name);
