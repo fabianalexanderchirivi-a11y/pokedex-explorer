@@ -1,15 +1,22 @@
-import { Text, View } from 'react-native';
-import usePokemonList from './src/hooks/usePokemonList';
-import usePokemonDetail from './src/hooks/usePokemonDetail';
+import { View } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import SearchBar from './src/components/SearchBar';
+import StatusView from './src/components/StatusView';
 
 export default function App() {
-  const list = usePokemonList();
-  const detail = usePokemonDetail(' Pikachu ');
-
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>{list.isLoading ? 'Loading list...' : `List: ${list.pokemon.length}`}</Text>
-      <Text>{detail.status === 'success' ? `Detail: ${detail.pokemon.name}` : detail.status}</Text>
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView style={{ flex: 1 }}>
+        <SearchBar onSearch={(text) => console.log('Search:', text)} />
+        <View style={{ flex: 1 }}>
+          {/* Try the three states: 'loading', 'error' and 'empty' */}
+          <StatusView
+            status="loading"
+            message="No se pudo conectar con la API."
+            onRetry={() => console.log('Retry')}
+          />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
