@@ -3,7 +3,10 @@ import { getIdFromUrl, getImageUrl } from '../utils/format';
 const BASE_URL = 'https://pokeapi.co/api/v2';
 export const PAGE_SIZE = 20;
 
-// Concept: fetch with async/await. Check response.ok BEFORE response.json()
+// Concept: network logic separated from the UI — this is the only file that calls fetch.
+
+// Concept: fetch with async/await — request to the API; check response.ok BEFORE
+// response.json(), because a missing pokemon answers 404 with plain text, not JSON.
 async function request(path) {
   const response = await fetch(`${BASE_URL}${path}`);
   if (!response.ok) {
@@ -24,18 +27,22 @@ export async function fetchPokemonList(offset = 0, limit = PAGE_SIZE) {
     })),
   };
 }
+
 export async function fetchPokemonDetail(query) {
-  const cleanQuery = String(query).trim().toLowerCase();
+  const cleanQuery = String(query).trim().toLowerCase().replace(/^#/, '');
   if (cleanQuery === '') {
     const error = new Error('Empty search');
     error.status = 404;
     throw error;
   }
+  const isNumber = /^\d+$/.test(cleanQuery);
+  const path = isNumber ? String(Number(cleanQuery)) : encodeURIComponent(cleanQuery);
 
-  const data = await request(`/pokemon/${cleanQuery}`);
+  const data = await request(`/pokemon/${path}`);
   return {
     id: data.id,
     name: data.name,
+    // height is in decimeters and weight in hectograms
     height: data.height / 10,
     weight: data.weight / 10,
     types: data.types.map((item) => item.type.name),
